@@ -8,10 +8,10 @@ import Text from './Text';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.barBackground,
-    paddingTop: Constants.statusBarHeight,
-    paddingRight: Constants.statusBarHeight / 2,
-    paddingBottom: Constants.statusBarHeight / 2,
-    paddingLeft: Constants.statusBarHeight / 2,
+    paddingTop: Constants.statusBarHeight * 2,
+    paddingRight: Constants.statusBarHeight * 0.75,
+    paddingBottom: Constants.statusBarHeight,
+    paddingLeft: Constants.statusBarHeight * 0.75,
   },
   text: {
     color: theme.colors.barText,
