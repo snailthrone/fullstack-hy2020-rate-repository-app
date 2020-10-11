@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
 
@@ -7,17 +7,19 @@ import Text from './Text';
 import { Link } from 'react-router-native';
 
 const styles = StyleSheet.create({
-  container: {
+  flexContainer: {
     backgroundColor: theme.colors.barBackground,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     paddingTop: Constants.statusBarHeight * 2,
     paddingRight: Constants.statusBarHeight * 0.75,
     paddingBottom: Constants.statusBarHeight,
     paddingLeft: Constants.statusBarHeight * 0.75,
   },
-  flexContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  contentContainer: {
+    flexGrow: 1,
+    justifyContent: 'space-around',
   },
   text: {
     color: theme.colors.barText,
@@ -26,8 +28,8 @@ const styles = StyleSheet.create({
 
 const AppBar = () => (
   <TouchableWithoutFeedback>
-    <View style={styles.container}>
-      <View style={styles.flexContainer}>
+    <View style={styles.flexContainer}>
+      <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
         <Link to="/">
           <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
             Repositories
@@ -38,7 +40,7 @@ const AppBar = () => (
             Sign in
           </Text>
         </Link>
-      </View>
+      </ScrollView>
     </View>
   </TouchableWithoutFeedback>
 );

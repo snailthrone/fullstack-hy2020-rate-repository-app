@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import theme from '../theme';
 import RepositoryInfo from './RepositoryInfo';
 
 import RepositoryStats from './RepositoryStats';
 
 const styles = StyleSheet.create({
   flexContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.containerBackground,
     display: 'flex',
     padding: 15,
   },
