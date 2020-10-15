@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 const RepositoryItem = props => {
   const info = {
     image: props.item.ownerAvatarUrl,
-    name: props.item.fullName,
+    name: props.item.name,
     description: props.item.description,
     language: props.item.language,
   };

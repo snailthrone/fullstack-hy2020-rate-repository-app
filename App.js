@@ -1,14 +1,18 @@
 import React from 'react';
 import { NativeRouter } from 'react-router-native';
+import { ApolloProvider } from '@apollo/react-hooks';
 
 import Main from './src/components/Main';
+import createApolloClient from './src/utils/apolloClient';
 
-const App = () => {
-  return (
-    <NativeRouter>
+const apolloClient = createApolloClient();
+
+const App = () => (
+  <NativeRouter>
+    <ApolloProvider client={apolloClient}>
       <Main />
-    </NativeRouter>
-  );
-};
+    </ApolloProvider>
+  </NativeRouter>
+);
 
 export default App;
