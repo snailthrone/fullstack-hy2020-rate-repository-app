@@ -6,6 +6,10 @@ import theme from '../theme';
 
 import FormikTextInput from './FormikTextInput';
 import Text from './Text';
+import useSignIn from '../hooks/useSignIn';
+import AuthStorage from '../utils/AuthStorage';
+
+const authStorage = new AuthStorage();
 
 const initialValues = {
   username: '',
@@ -50,8 +54,15 @@ const SignInForm = ({ onSubmit }) => {
 };
 
 const SignIn = () => {
-  const onSubmit = values => {
-    console.log(values);
+  const [signIn] = useSignIn();
+
+  const onSubmit = async values => {
+    try {
+      const { data } = await signIn(values);
+      authStorage.setAccessToken(data.authorize.accessToken);
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   return (
