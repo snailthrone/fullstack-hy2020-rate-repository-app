@@ -1,15 +1,14 @@
-import * as yup from 'yup';
-import { Formik } from 'formik';
 import React from 'react';
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import theme from '../theme';
+import { useHistory } from 'react-router-native';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
+import theme from '../theme';
 import FormikTextInput from './FormikTextInput';
 import Text from './Text';
-import useSignIn from '../hooks/useSignIn';
-import AuthStorage from '../utils/AuthStorage';
 
-const authStorage = new AuthStorage();
+import useSignIn from '../hooks/useSignIn';
 
 const initialValues = {
   username: '',
@@ -54,12 +53,13 @@ const SignInForm = ({ onSubmit }) => {
 };
 
 const SignIn = () => {
+  const history = useHistory();
   const [signIn] = useSignIn();
 
   const onSubmit = async values => {
     try {
-      const { data } = await signIn(values);
-      authStorage.setAccessToken(data.authorize.accessToken);
+      await signIn(values);
+      history.push('/repositories');
     } catch (e) {
       console.log(e.message);
     }

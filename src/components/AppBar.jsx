@@ -5,6 +5,10 @@ import theme from '../theme';
 
 import Text from './Text';
 import { Link } from 'react-router-native';
+import { useQuery } from '@apollo/react-hooks';
+import { AUTHORIZED_USER } from '../graphql/queries';
+import useAuthorizedUser from '../hooks/useAuthorizedUser';
+import SignOut from './SignOut';
 
 const styles = StyleSheet.create({
   flexContainer: {
@@ -26,23 +30,30 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppBar = () => (
-  <TouchableWithoutFeedback>
-    <View style={styles.flexContainer}>
-      <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
-        <Link to="/">
-          <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
-            Repositories
-          </Text>
-        </Link>
-        <Link to="/signin">
-          <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
-            Sign in
-          </Text>
-        </Link>
-      </ScrollView>
-    </View>
-  </TouchableWithoutFeedback>
-);
+const AppBar = () => {
+  const authorized = useAuthorizedUser();
+  return (
+    <TouchableWithoutFeedback>
+      <View style={styles.flexContainer}>
+        <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
+          <Link to="/">
+            <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
+              Repositories
+            </Text>
+          </Link>
+          {authorized ? (
+            <SignOut />
+          ) : (
+            <Link to="/signin">
+              <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
+                Sign in
+              </Text>
+            </Link>
+          )}
+        </ScrollView>
+      </View>
+    </TouchableWithoutFeedback>
+  );
+};
 
 export default AppBar;
