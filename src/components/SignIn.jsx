@@ -10,11 +10,6 @@ import Text from './Text';
 
 import useSignIn from '../hooks/useSignIn';
 
-const initialValues = {
-  username: '',
-  password: '',
-};
-
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
@@ -36,12 +31,19 @@ const validationSchema = yup.object().shape({
   password: yup.string().required('Password is required'),
 });
 
+const initialValues = { username: '', password: '' };
+
 const SignInForm = ({ onSubmit }) => {
   return (
     <View style={styles.formContainer}>
-      <FormikTextInput name="username" placeholder="Username" />
-      <FormikTextInput name="password" placeholder="Password" secureTextEntry />
-      <TouchableWithoutFeedback onPress={onSubmit}>
+      <FormikTextInput name="username" placeholder="Username" testID="usernameField" />
+      <FormikTextInput
+        name="password"
+        placeholder="Password"
+        secureTextEntry
+        testID="passwordField"
+      />
+      <TouchableWithoutFeedback onPress={onSubmit} testID="submitButton">
         <View style={styles.button}>
           <Text fontWeight="bold" style={{ color: theme.colors.barText }}>
             Sign in
@@ -49,6 +51,14 @@ const SignInForm = ({ onSubmit }) => {
         </View>
       </TouchableWithoutFeedback>
     </View>
+  );
+};
+
+export const SignInContainer = ({ onSubmit }) => {
+  return (
+    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+    </Formik>
   );
 };
 
@@ -65,11 +75,7 @@ const SignIn = () => {
     }
   };
 
-  return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
-    </Formik>
-  );
+  return <SignInContainer onSubmit={onSubmit} />;
 };
 
 export default SignIn;

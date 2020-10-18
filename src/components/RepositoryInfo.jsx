@@ -41,14 +41,21 @@ const RepositoryInfo = ({ image, name, description, language }) => {
     <View style={styles.flexContainer}>
       <Image source={{ uri: image }} style={styles.image} />
       <View style={styles.textContainer}>
-        <Text fontSize="subheading" fontWeight="bold" style={{ marginBottom: 5 }}>
+        <Text
+          fontSize="subheading"
+          fontWeight="bold"
+          style={{ marginBottom: 5 }}
+          testID="repositoryName"
+        >
           {name}
         </Text>
-        <Text color="textSecondary" style={{ marginBottom: 5 }}>
+        <Text color="textSecondary" style={{ marginBottom: 5 }} testID="repositoryDescription">
           {description}
         </Text>
         <View style={styles.language}>
-          <Text style={{ color: theme.colors.barText }}>{language}</Text>
+          <Text style={{ color: theme.colors.barText }} testID="repositoryLanguage">
+            {language}
+          </Text>
         </View>
       </View>
     </View>

@@ -1,12 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import Constants from 'expo-constants';
-import theme from '../theme';
-
-import Text from './Text';
 import { Link } from 'react-router-native';
-import { useQuery } from '@apollo/react-hooks';
-import { AUTHORIZED_USER } from '../graphql/queries';
+import Constants from 'expo-constants';
+
+import theme from '../theme';
+import Text from './Text';
 import useAuthorizedUser from '../hooks/useAuthorizedUser';
 import SignOut from './SignOut';
 

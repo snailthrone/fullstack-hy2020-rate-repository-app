@@ -22,14 +22,14 @@ const RepositoryItem = props => {
   };
 
   const stats = [
-    { title: 'Stars', value: props.item.stargazersCount },
-    { title: 'Forks', value: props.item.forksCount },
-    { title: 'Reviews', value: props.item.reviewCount },
-    { title: 'Rating', value: props.item.ratingAverage },
+    { testID: 'repositoryStars', title: 'Stars', value: props.item.stargazersCount },
+    { testID: 'repositoryForks', title: 'Forks', value: props.item.forksCount },
+    { testID: 'repositoryReviews', title: 'Reviews', value: props.item.reviewCount },
+    { testID: 'repositoryRating', title: 'Rating', value: props.item.ratingAverage },
   ];
 
   return (
-    <View style={styles.flexContainer}>
+    <View style={styles.flexContainer} testID="repositoryItem">
       <RepositoryInfo {...info} />
       <RepositoryStats data={stats} />
     </View>

@@ -1,11 +1,11 @@
 {
-  "plugins": ["react"],
+  "plugins": ["react", "jest"],
   "settings": {
     "react": {
       "version": "detect"
     }
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier", "prettier/react"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jest/recommended", "prettier", "prettier/react"],
   "parser": "babel-eslint",
   "env": {
     "browser": true

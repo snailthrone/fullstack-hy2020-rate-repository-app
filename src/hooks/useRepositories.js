@@ -5,11 +5,12 @@ import { GET_REPOSITORIES } from '../graphql/queries';
 
 const useRepositories = () => {
   const { data, error, loading } = useQuery(GET_REPOSITORIES, { fetchPolicy: 'cache-and-network' });
-  const [repositories, setRepositories] = useState([]);
+  const [repositories, setRepositories] = useState();
 
   useEffect(() => {
-    const repositoryNodes = data ? data.repositories.edges.map(({ node }) => node) : [];
-    setRepositories(repositoryNodes);
+    if (data) {
+      setRepositories(data.repositories);
+    }
   }, [data]);
 
   return { repositories, loading, refetch: null };
