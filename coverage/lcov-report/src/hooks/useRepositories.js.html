@@ -98,10 +98,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useQuery } from '@apollo/react-hooks';
 import { useEffect, useState } from 'react';
 &nbsp;
-import { GET_REPOSITORIES } from '../graphql/queries';
+import { REPOSITORIES } from '../graphql/queries';
 &nbsp;
 const useRepositories = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-  const { data, error, loading } = <span class="cstat-no" title="statement not covered" >useQuery(GET_REPOSITORIES, { fetchPolicy: 'cache-and-network' });</span>
+  const { data, error, loading } = <span class="cstat-no" title="statement not covered" >useQuery(REPOSITORIES, { fetchPolicy: 'cache-and-network' });</span>
   const [repositories, setRepositories] = <span class="cstat-no" title="statement not covered" >useState();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>

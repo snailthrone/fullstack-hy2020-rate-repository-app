@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import theme from '../theme';
-import RepositoryInfo from './RepositoryInfo';
+import { Linking, StyleSheet, View } from 'react-native';
 
+import theme from '../theme';
+import Button from './Button';
+import RepositoryInfo from './RepositoryInfo';
 import RepositoryStats from './RepositoryStats';
 
 const styles = StyleSheet.create({
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
 const RepositoryItem = props => {
   const info = {
     image: props.item.ownerAvatarUrl,
-    name: props.item.name,
+    name: props.item.fullName,
     description: props.item.description,
     language: props.item.language,
   };
@@ -33,6 +34,21 @@ const RepositoryItem = props => {
       <RepositoryInfo {...info} />
       <RepositoryStats data={stats} />
     </View>
+  );
+};
+
+export const RepositoryItemWithButton = props => {
+  const onPress = () => {
+    Linking.openURL(props.item.url);
+  };
+
+  return (
+    <>
+      <RepositoryItem {...props} />
+      <View style={{ ...styles.flexContainer, paddingTop: 0 }}>
+        <Button onPress={onPress} style={{ padding: 15 }} title="Open in GitHub" />
+      </View>
+    </>
   );
 };
 

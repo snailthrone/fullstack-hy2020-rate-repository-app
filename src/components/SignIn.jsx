@@ -9,6 +9,7 @@ import FormikTextInput from './FormikTextInput';
 import Text from './Text';
 
 import useSignIn from '../hooks/useSignIn';
+import Button from './Button';
 
 const styles = StyleSheet.create({
   button: {
@@ -43,13 +44,7 @@ const SignInForm = ({ onSubmit }) => {
         secureTextEntry
         testID="passwordField"
       />
-      <TouchableWithoutFeedback onPress={onSubmit} testID="submitButton">
-        <View style={styles.button}>
-          <Text fontWeight="bold" style={{ color: theme.colors.barText }}>
-            Sign in
-          </Text>
-        </View>
-      </TouchableWithoutFeedback>
+      <Button onPress={onSubmit} testID="submitButton" title="Sign in" />
     </View>
   );
 };

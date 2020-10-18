@@ -15,7 +15,7 @@ const repositories = {
     {
       node: {
         id: 'jaredpalmer.formik',
-        name: 'jaredpalmer/formik',
+        fullName: 'jaredpalmer/formik',
         description: 'Build forms in React, without the tears',
         language: 'TypeScript',
         forksCount: 1619,
@@ -29,7 +29,7 @@ const repositories = {
     {
       node: {
         id: 'async-library.react-async',
-        name: 'async-library/react-async',
+        fullName: 'async-library/react-async',
         description: 'Flexible promise-based React data loader',
         language: 'JavaScript',
         forksCount: 69,
