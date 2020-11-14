@@ -56,7 +56,7 @@ describe('RepositoryList', () => {
       const repositoryReviews = getAllByTestId('repositoryReviews');
 
       repositoryNames.forEach((name, i) => {
-        expect(name).toHaveTextContent(repositories.edges[i].node.name);
+        expect(name).toHaveTextContent(repositories.edges[i].node.fullName);
       });
       repositoryDescriptions.forEach((description, i) => {
         expect(description).toHaveTextContent(repositories.edges[i].node.description);

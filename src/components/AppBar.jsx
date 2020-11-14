@@ -39,6 +39,11 @@ const AppBar = () => {
               Repositories
             </Text>
           </Link>
+          <Link to="/reviewform">
+            <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
+              Create a review
+            </Text>
+          </Link>
           {authorized ? (
             <SignOut />
           ) : (

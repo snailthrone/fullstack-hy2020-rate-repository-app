@@ -1,10 +1,12 @@
 import React from 'react';
-import { Linking, StyleSheet, View } from 'react-native';
+import { FlatList, Linking, StyleSheet, View } from 'react-native';
 
 import theme from '../theme';
 import Button from './Button';
 import RepositoryInfo from './RepositoryInfo';
 import RepositoryStats from './RepositoryStats';
+import Review from './Review';
+import Text from './Text';
 
 const styles = StyleSheet.create({
   flexContainer: {
@@ -42,12 +44,19 @@ export const RepositoryItemWithButton = props => {
     Linking.openURL(props.item.url);
   };
 
+  const reviews = props.item.reviews.edges.map(({ node }) => ({ ...node }));
+
   return (
     <>
       <RepositoryItem {...props} />
-      <View style={{ ...styles.flexContainer, paddingTop: 0 }}>
+      <View style={{ ...styles.flexContainer, marginBottom: 8, paddingTop: 0 }}>
         <Button onPress={onPress} style={{ padding: 15 }} title="Open in GitHub" />
       </View>
+      <FlatList
+        data={reviews}
+        renderItem={({ item }) => <Review {...item} />}
+        keyExtractor={({ id }) => id}
+      />
     </>
   );
 };
