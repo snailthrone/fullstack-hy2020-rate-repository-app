@@ -1,4 +1,4 @@
-import ApolloClient from 'apollo-boost';
+import ApolloClient, { gql } from 'apollo-boost';
 import Constants from 'expo-constants';
 
 const createApolloClient = authStorage => {
@@ -15,6 +15,16 @@ const createApolloClient = authStorage => {
         console.log(e);
       }
     },
+    typeDefs: gql`
+      enum AllRepositoriesOrderBy {
+        CREATED_AT
+        RATING_AVERAGE
+      }
+      enum OrderDirection {
+        ASC
+        DESC
+      }
+    `,
     uri: Constants.manifest.extra.apolloUri,
   });
 };
