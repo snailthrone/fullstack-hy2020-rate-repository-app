@@ -11,7 +11,7 @@ describe('Review form', () => {
 
       fireEvent.changeText(getByTestId('ownerName'), 'snailthrone');
       fireEvent.changeText(getByTestId('repositoryName'), 'fullstack-hy2020-rate-repository-app');
-      fireEvent.changeText(getByTestId('rating'), 100);
+      fireEvent.changeText(getByTestId('rating'), '100');
       fireEvent.press(getByTestId('reviewFormSubmitButton'));
 
       await waitFor(() => {
@@ -19,7 +19,7 @@ describe('Review form', () => {
         expect(onSubmit.mock.calls[0][0]).toMatchObject({
           ownerName: 'snailthrone',
           repositoryName: 'fullstack-hy2020-rate-repository-app',
-          rating: 100,
+          rating: '100',
         });
       });
     });
