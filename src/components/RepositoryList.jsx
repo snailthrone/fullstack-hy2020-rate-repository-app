@@ -22,7 +22,12 @@ const dropdownItems = [
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const RepositoryListContainer = ({ onChange, onValueChange, repositories }) => {
+export const RepositoryListContainer = ({
+  onChange,
+  onEndReached,
+  onValueChange,
+  repositories,
+}) => {
   const history = useHistory();
   const repositoryNodes = repositories ? repositories.edges.map(edge => edge.node) : [];
 
@@ -48,6 +53,8 @@ export const RepositoryListContainer = ({ onChange, onValueChange, repositories 
         </>
       }
       keyExtractor={item => item.id}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.8}
       renderItem={item => (
         <TouchableOpacity onPress={onPress(item.item.id)}>
           <RepositoryItem {...item} />
@@ -75,18 +82,24 @@ const RepositoryList = () => {
   const [parameters, setParameters] = useState(getParameters());
   const [searchKeyword, setSearchKeyword] = useDebounce(100);
 
-  const { repositories } = useRepositories(
-    parameters.orderBy,
-    parameters.orderDirection,
-    searchKeyword || undefined,
-  );
+  const { repositories, fetchMore } = useRepositories({
+    first: 8,
+    orderBy: parameters.orderBy,
+    orderDirection: parameters.orderDirection,
+    searchKeyword: searchKeyword || undefined,
+  });
 
+  const onEndReached = () => {
+    console.log('rock bottom');
+    fetchMore();
+  };
   const onValueChange = value => setParameters(getParameters(value));
   const onChange = value => setSearchKeyword(value);
 
   return (
     <RepositoryListContainer
       onChange={onChange}
+      onEndReached={onEndReached}
       onValueChange={onValueChange}
       repositories={repositories}
     />

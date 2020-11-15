@@ -2,11 +2,15 @@ import { gql } from 'apollo-boost';
 
 export const REPOSITORIES = gql`
   query repositories(
+    $after: String
+    $first: Int
     $orderBy: AllRepositoriesOrderBy
     $orderDirection: OrderDirection
     $searchKeyword: String
   ) {
     repositories(
+      after: $after
+      first: $first
       orderBy: $orderBy
       orderDirection: $orderDirection
       searchKeyword: $searchKeyword
@@ -23,6 +27,12 @@ export const REPOSITORIES = gql`
           reviewCount
           ratingAverage
         }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        startCursor
+        totalCount
       }
     }
   }
