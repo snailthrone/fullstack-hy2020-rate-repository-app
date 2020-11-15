@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { FlatList, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useHistory } from 'react-router-native';
+import useDebounce from '../hooks/useDebounce';
 import useRepositories from '../hooks/useRepositories';
 
 import Dropdown from './Dropdown';
 import RepositoryItem from './RepositoryItem';
+import TextInput from './TextInput';
 
 const styles = StyleSheet.create({
   separator: {
@@ -20,19 +22,31 @@ const dropdownItems = [
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const RepositoryListContainer = ({ onValueChange, repositories }) => {
+export const RepositoryListContainer = ({ onChange, onValueChange, repositories }) => {
   const history = useHistory();
   const repositoryNodes = repositories ? repositories.edges.map(edge => edge.node) : [];
 
+  const [value, setValue] = useState('');
+
   const onPress = id => () => {
     history.push(`/${id}`);
+  };
+
+  const onChangeText = val => {
+    setValue(val);
+    onChange(val);
   };
 
   return (
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
-      ListHeaderComponent={<Dropdown items={dropdownItems} onValueChange={onValueChange} />}
+      ListHeaderComponent={
+        <>
+          <TextInput onChangeText={onChangeText} value={value} />
+          <Dropdown items={dropdownItems} onValueChange={onValueChange} />
+        </>
+      }
       keyExtractor={item => item.id}
       renderItem={item => (
         <TouchableOpacity onPress={onPress(item.item.id)}>
@@ -59,11 +73,24 @@ const getParameters = value => {
 
 const RepositoryList = () => {
   const [parameters, setParameters] = useState(getParameters());
-  const { repositories } = useRepositories(parameters);
+  const [searchKeyword, setSearchKeyword] = useDebounce(100);
+
+  const { repositories } = useRepositories(
+    parameters.orderBy,
+    parameters.orderDirection,
+    searchKeyword || undefined,
+  );
 
   const onValueChange = value => setParameters(getParameters(value));
+  const onChange = value => setSearchKeyword(value);
 
-  return <RepositoryListContainer repositories={repositories} onValueChange={onValueChange} />;
+  return (
+    <RepositoryListContainer
+      onChange={onChange}
+      onValueChange={onValueChange}
+      repositories={repositories}
+    />
+  );
 };
 
 export default RepositoryList;
