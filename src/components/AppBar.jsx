@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
   const authorized = useAuthorizedUser();
+
   return (
     <TouchableWithoutFeedback>
       <View style={styles.flexContainer}>
@@ -39,19 +40,28 @@ const AppBar = () => {
               Repositories
             </Text>
           </Link>
-          <Link to="/reviewform">
-            <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
-              Create a review
-            </Text>
-          </Link>
           {authorized ? (
-            <SignOut />
+            <>
+              <Link to="/reviewform">
+                <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
+                  Create a review
+                </Text>
+              </Link>
+              <SignOut />
+            </>
           ) : (
-            <Link to="/signin">
-              <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
-                Sign in
-              </Text>
-            </Link>
+            <>
+              <Link to="/signin">
+                <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
+                  Sign in
+                </Text>
+              </Link>
+              <Link to="/signup">
+                <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
+                  Sign up
+                </Text>
+              </Link>
+            </>
           )}
         </ScrollView>
       </View>

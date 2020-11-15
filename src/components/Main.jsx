@@ -3,11 +3,12 @@ import { StyleSheet, View } from 'react-native';
 import { Route, Switch, Redirect, useRouteMatch } from 'react-router-native';
 import useRepository from '../hooks/useRepository';
 
-import AppBar from './AppBar';
 import { RepositoryItemWithButton } from './RepositoryItem';
+import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
 import ReviewForm from './ReviewForm';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +34,9 @@ const Main = () => {
         </Route>
         <Route path="/signin" exact>
           <SignIn />
+        </Route>
+        <Route path="/signup" exact>
+          <SignUp />
         </Route>
         <Route path="/:id" exact>
           {repository && <RepositoryItemWithButton item={repository} />}
