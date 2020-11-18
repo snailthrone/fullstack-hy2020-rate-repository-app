@@ -3,6 +3,7 @@ import { FlatList, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useHistory } from 'react-router-native';
 import useDebounce from '../hooks/useDebounce';
 import useRepositories from '../hooks/useRepositories';
+import theme from '../theme';
 
 import Dropdown from './Dropdown';
 import RepositoryItem from './RepositoryItem';
@@ -11,6 +12,22 @@ import TextInput from './TextInput';
 const styles = StyleSheet.create({
   separator: {
     height: 10,
+  },
+  searchBarContainer: {
+    padding: 16,
+  },
+  searchBar: {
+    backgroundColor: theme.colors.containerBackground,
+    borderColor: theme.colors.containerBackground,
+    shadowColor: theme.colors.barBackground,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 4,
+    marginBottom: 16,
   },
 });
 
@@ -48,8 +65,15 @@ export const RepositoryListContainer = ({
       ItemSeparatorComponent={ItemSeparator}
       ListHeaderComponent={
         <>
-          <TextInput onChangeText={onChangeText} value={value} />
-          <Dropdown items={dropdownItems} onValueChange={onValueChange} />
+          <View style={styles.searchBarContainer}>
+            <TextInput
+              onChangeText={onChangeText}
+              placeholder="Search"
+              style={styles.searchBar}
+              value={value}
+            />
+            <Dropdown items={dropdownItems} onValueChange={onValueChange} />
+          </View>
         </>
       }
       keyExtractor={item => item.id}
@@ -89,10 +113,7 @@ const RepositoryList = () => {
     searchKeyword: searchKeyword || undefined,
   });
 
-  const onEndReached = () => {
-    console.log('rock bottom');
-    fetchMore();
-  };
+  const onEndReached = () => fetchMore();
   const onValueChange = value => setParameters(getParameters(value));
   const onChange = value => setSearchKeyword(value);
 

@@ -5,21 +5,38 @@ import theme from '../theme';
 
 const styles = StyleSheet.create({
   inputIOS: {
-    fontSize: theme.fontSizes.body,
-    paddingVertical: 16,
-    paddingHorizontal: 16,
+    backgroundColor: theme.colors.containerBackground,
+    borderRadius: 5,
     color: theme.colors.textPrimary,
+    fontSize: theme.fontSizes.body,
+    paddingHorizontal: 16,
     paddingRight: 32,
+    paddingVertical: 16,
+    shadowColor: theme.colors.barBackground,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 4,
   },
   inputAndroid: {
+    backgroundColor: theme.colors.containerBackground,
+    borderRadius: 5,
+    color: theme.colors.textPrimary,
     fontSize: theme.fontSizes.body,
     paddingHorizontal: 16,
-    paddingVertical: 16,
-    color: theme.colors.textPrimary,
     paddingRight: 32,
-  },
-  placeholder: {
-    color: theme.colors.textPrimary,
+    paddingVertical: 16,
+    shadowColor: theme.colors.barBackground,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 4,
   },
 });
 
