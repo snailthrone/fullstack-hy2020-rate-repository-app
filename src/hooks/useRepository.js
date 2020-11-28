@@ -2,23 +2,57 @@ import { useLazyQuery } from '@apollo/react-hooks';
 import { useEffect, useState } from 'react';
 import { REPOSITORY } from '../graphql/queries';
 
-const useRepository = repository => {
+const useRepository = repositoryId => {
   const [id, setId] = useState(null);
-  const [getRepository, { data }] = useLazyQuery(REPOSITORY, { fetchPolicy: 'cache-and-network' });
+  const [getRepository, { data, loading, fetchMore, ...result }] = useLazyQuery(REPOSITORY, {
+    fetchPolicy: 'cache-and-network',
+  });
+
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data && data.repository.reviews.pageInfo.hasNextPage;
+
+    if (!canFetchMore) {
+      return;
+    }
+
+    fetchMore({
+      query: REPOSITORY,
+      variables: {
+        after: data.repository.reviews.pageInfo.endCursor,
+        first: 1,
+        id: id,
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        const nextResult = {
+          repository: {
+            ...previousResult.repository,
+            reviews: {
+              ...fetchMoreResult.repository.reviews,
+              edges: [
+                ...previousResult.repository.reviews.edges,
+                ...fetchMoreResult.repository.reviews.edges,
+              ],
+            },
+          },
+        };
+        return nextResult;
+      },
+    });
+  };
 
   useEffect(() => {
-    if (repository) {
-      setId(repository.params.id);
+    if (repositoryId) {
+      setId(repositoryId);
     }
-  }, [repository]);
+  }, [repositoryId]);
 
   useEffect(() => {
     if (id) {
-      getRepository({ variables: { id } });
+      getRepository({ variables: { id: id, first: 1 } });
     }
   }, [id]);
 
-  return data?.repository;
+  return { repository: data?.repository, fetchMore: handleFetchMore, loading };
 };
 
 export default useRepository;
