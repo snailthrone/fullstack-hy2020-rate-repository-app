@@ -4,7 +4,7 @@ import { REPOSITORY } from '../graphql/queries';
 
 const useRepository = repositoryId => {
   const [id, setId] = useState(null);
-  const [getRepository, { data, loading, fetchMore, ...result }] = useLazyQuery(REPOSITORY, {
+  const [getRepository, { data, loading, fetchMore }] = useLazyQuery(REPOSITORY, {
     fetchPolicy: 'cache-and-network',
   });
 
