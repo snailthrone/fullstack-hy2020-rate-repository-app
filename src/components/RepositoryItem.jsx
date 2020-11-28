@@ -1,12 +1,11 @@
 import React from 'react';
-import { FlatList, Linking, StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 
 import theme from '../theme';
 import Button from './Button';
 import RepositoryInfo from './RepositoryInfo';
 import RepositoryStats from './RepositoryStats';
-import Review from './Review';
-import Text from './Text';
+import ReviewList from './ReviewList';
 
 const styles = StyleSheet.create({
   flexContainer: {
@@ -39,12 +38,12 @@ const RepositoryItem = props => {
   );
 };
 
-export const RepositoryItemWithButton = props => {
-  const onPress = () => {
-    Linking.openURL(props.item.url);
-  };
+export const RepositoryItemWithButton = ({ fetchMore, ...props }) => {
+  const onPress = () => Linking.openURL(props.item.url);
 
-  const reviews = props.item.reviews.edges.map(({ node }) => ({ ...node }));
+  const reviews = props.item.reviews.edges
+    .map(({ node }) => ({ ...node }))
+    .map(review => ({ ...review, heading: review.user.username }));
 
   return (
     <>
@@ -52,11 +51,7 @@ export const RepositoryItemWithButton = props => {
       <View style={{ ...styles.flexContainer, marginBottom: 8, paddingTop: 0 }}>
         <Button onPress={onPress} style={{ padding: 15 }} title="Open in GitHub" />
       </View>
-      <FlatList
-        data={reviews}
-        renderItem={({ item }) => <Review {...item} />}
-        keyExtractor={({ id }) => id}
-      />
+      <ReviewList reviews={reviews} onEndReached={fetchMore} />
     </>
   );
 };
