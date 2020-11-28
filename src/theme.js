@@ -5,6 +5,7 @@ const theme = {
     barBackground: '#24292e',
     barText: '#ffffff',
     containerBackground: '#ffffff',
+    delete: '#d73a4a',
     error: '#d73a4a',
     primary: '#0366d6',
     textPrimary: '#24292e',

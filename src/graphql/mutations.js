@@ -20,6 +20,12 @@ export const CREATE_REVIEW = gql`
   }
 `;
 
+export const DELETE_REVIEW = gql`
+  mutation deleteReview($id: ID!) {
+    deleteReview(id: $id)
+  }
+`;
+
 export const SIGN_IN = gql`
   mutation signIn($username: String!, $password: String!) {
     authorize(credentials: { username: $username, password: $password }) {

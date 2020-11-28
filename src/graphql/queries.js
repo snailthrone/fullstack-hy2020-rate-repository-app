@@ -39,16 +39,41 @@ export const REPOSITORIES = gql`
 `;
 
 export const AUTHORIZED_USER = gql`
-  query {
+  query authorizedUser($after: String, $first: Int, $includeReviews: Boolean = false) {
     authorizedUser {
       id
       username
+      reviews(after: $after, first: $first) @include(if: $includeReviews) {
+        edges {
+          node {
+            createdAt
+            id
+            rating
+            repository {
+              fullName
+              name
+            }
+            text
+            repositoryId
+            user {
+              id
+              username
+            }
+          }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+          startCursor
+          totalCount
+        }
+      }
     }
   }
 `;
 
 export const REPOSITORY = gql`
-  query repository($id: ID!) {
+  query repository($id: ID!, $first: Int, $after: String) {
     repository(id: $id) {
       description
       forksCount
@@ -60,7 +85,7 @@ export const REPOSITORY = gql`
       reviewCount
       stargazersCount
       url
-      reviews {
+      reviews(first: $first, after: $after) {
         edges {
           node {
             id
@@ -72,6 +97,13 @@ export const REPOSITORY = gql`
               username
             }
           }
+          cursor
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          totalCount
+          hasNextPage
         }
       }
     }

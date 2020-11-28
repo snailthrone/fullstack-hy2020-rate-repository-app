@@ -6,13 +6,11 @@ import useRepositories from '../hooks/useRepositories';
 import theme from '../theme';
 
 import Dropdown from './Dropdown';
+import ItemSeparator from './ItemSeparator';
 import RepositoryItem from './RepositoryItem';
 import TextInput from './TextInput';
 
 const styles = StyleSheet.create({
-  separator: {
-    height: 10,
-  },
   searchBarContainer: {
     padding: 16,
   },
@@ -36,8 +34,6 @@ const dropdownItems = [
   { label: 'Highest rated repositories', value: 'highest_rated_repositories' },
   { label: 'Lowest rated repositories', value: 'lowest_rated_repositories' },
 ];
-
-const ItemSeparator = () => <View style={styles.separator} />;
 
 export const RepositoryListContainer = ({
   onChange,

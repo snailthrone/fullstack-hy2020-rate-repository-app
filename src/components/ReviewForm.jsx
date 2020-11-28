@@ -25,7 +25,7 @@ const validationSchema = yup.object().shape({
 const initialValues = {
   ownerName: '',
   repositoryName: '',
-  rating: 0,
+  rating: '0',
   text: '',
 };
 
@@ -52,7 +52,6 @@ const ReviewForm = () => {
   const onSubmit = async values => {
     try {
       const id = await createReview({ ...values, rating: Number(values.rating) });
-      console.log(id);
       history.push(`/${id}`);
     } catch (e) {
       console.log(e.message);

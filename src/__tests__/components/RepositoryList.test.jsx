@@ -46,7 +46,14 @@ const repositories = {
 describe('RepositoryList', () => {
   describe('RepositoryListContainer', () => {
     it('renders repository information correctly', () => {
-      const { getAllByTestId } = render(<RepositoryListContainer repositories={repositories} />);
+      const { getAllByTestId } = render(
+        <RepositoryListContainer
+          onChange={jest.fn()}
+          onEndReached={jest.fn()}
+          onValueChange={jest.fn()}
+          repositories={repositories}
+        />,
+      );
       const repositoryNames = getAllByTestId('repositoryName');
       const repositoryDescriptions = getAllByTestId('repositoryDescription');
       const repositoryLanguages = getAllByTestId('repositoryLanguage');

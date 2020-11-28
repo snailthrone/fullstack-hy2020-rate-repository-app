@@ -9,6 +9,7 @@ import RepositoryList from './RepositoryList';
 import ReviewForm from './ReviewForm';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import UserReviews from './UserReviews';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
 
 const Main = () => {
   const repositoryMatch = useRouteMatch('/:id');
-  const repository = useRepository(repositoryMatch);
+  const repository = useRepository(repositoryMatch?.params?.id);
 
   return (
     <View style={styles.container}>
@@ -32,6 +33,9 @@ const Main = () => {
         <Route path="/reviewform" exact>
           <ReviewForm />
         </Route>
+        <Route path="/reviews" exact>
+          <UserReviews />
+        </Route>
         <Route path="/signin" exact>
           <SignIn />
         </Route>
@@ -39,7 +43,12 @@ const Main = () => {
           <SignUp />
         </Route>
         <Route path="/:id" exact>
-          {repository && <RepositoryItemWithButton item={repository} />}
+          {repository.repository && (
+            <RepositoryItemWithButton
+              fetchMore={repository.fetchMore}
+              item={repository.repository}
+            />
+          )}
         </Route>
         <Redirect to="/" />
       </Switch>
