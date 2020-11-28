@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { DELETE_REVIEW } from '../graphql/mutations';
 
 const useDeleteReview = () => {
-  const [mutate, { data }] = useMutation(DELETE_REVIEW);
+  const [mutate] = useMutation(DELETE_REVIEW);
 
   const deleteReview = async variables => {
     try {
