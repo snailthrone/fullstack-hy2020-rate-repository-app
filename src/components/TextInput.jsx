@@ -17,7 +17,6 @@ const TextInput = ({ style = {}, error, ...props }) => {
     ...styles.textInput,
     ...style,
   };
-  console.log(textStyle);
   return <NativeTextInput style={textStyle} {...props} />;
 };
 
