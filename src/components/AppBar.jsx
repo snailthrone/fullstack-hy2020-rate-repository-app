@@ -21,15 +21,16 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flexGrow: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   text: {
     color: theme.colors.barText,
+    paddingHorizontal: 8,
   },
 });
 
 const AppBar = () => {
-  const authorized = useAuthorizedUser();
+  const [authorized] = useAuthorizedUser();
 
   return (
     <TouchableWithoutFeedback>
@@ -45,6 +46,11 @@ const AppBar = () => {
               <Link to="/reviewform">
                 <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
                   Create a review
+                </Text>
+              </Link>
+              <Link to="/reviews">
+                <Text fontSize="subheading" fontWeight="bold" style={styles.text}>
+                  My reviews
                 </Text>
               </Link>
               <SignOut />
